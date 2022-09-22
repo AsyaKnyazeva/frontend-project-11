@@ -1,79 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-  <channel>
-    <title>Новые уроки на Хекслете</title>
-    <description>Практические уроки по программированию</description>
-    <link>https://ru.hexlet.io/</link>
-    <webMaster>info@hexlet.io</webMaster>
-    <item>
-      <title>Теория и практика / Как проектировать классные уроки</title>
-      <guid isPermaLink="false">2901</guid>
-      <link>https://ru.hexlet.io/courses/awesome-text-structure/lessons/examples/theory_unit</link>
-      <description>Цель: Иллюстрируем абстрактную теорию примерами из жизни</description>
-      <pubDate>Thu, 22 Sep 2022 09:22:41 +0300</pubDate>
-    </item>
-    <item>
-      <title>От простого к сложному / Как проектировать классные уроки</title>
-      <guid isPermaLink="false">2902</guid>
-      <link>https://ru.hexlet.io/courses/awesome-text-structure/lessons/from-easy-to-hard/theory_unit</link>
-      <description>Цель: Учимся распределять когнитивную нагрузку и плавно погружать ученика в тему урока</description>
-      <pubDate>Thu, 22 Sep 2022 09:22:37 +0300</pubDate>
-    </item>
-    <item>
-      <title>Стиль повествования / Как проектировать классные уроки</title>
-      <guid isPermaLink="false">2900</guid>
-      <link>https://ru.hexlet.io/courses/awesome-text-structure/lessons/write-as-you-speak/theory_unit</link>
-      <description>Цель: Учимся писать в неформальном стиле</description>
-      <pubDate>Thu, 22 Sep 2022 09:21:32 +0300</pubDate>
-    </item>
-    <item>
-      <title>Иерархия контроллеров / Ruby: Реальный Rails</title>
-      <guid isPermaLink="false">3036</guid>
-      <link>https://ru.hexlet.io/courses/rails-real/lessons/controller-hierarchy/theory_unit</link>
-      <description>Цель: Познакомиться с иерархией контроллеров</description>
-      <pubDate>Tue, 20 Sep 2022 22:51:50 +0300</pubDate>
-    </item>
-    <item>
-      <title>Визуализация / Как писать классные тексты</title>
-      <guid isPermaLink="false">3003</guid>
-      <link>https://ru.hexlet.io/courses/awesome-text/lessons/visual/theory_unit</link>
-      <description>Цель: Наполняем урок иллюстрациями и учимся оформлять списки</description>
-      <pubDate>Tue, 20 Sep 2022 08:39:13 +0300</pubDate>
-    </item>
-    <item>
-      <title>Фильтрация значений и вырезание / Работа с многомерными массивами данных с Python и Numpy</title>
-      <guid isPermaLink="false">3007</guid>
-      <link>https://ru.hexlet.io/courses/python-numpy/lessons/arrays-filtering/theory_unit</link>
-      <description>Цель: Создание фильтров и получения подмассивов с использованием фильтров</description>
-      <pubDate>Mon, 19 Sep 2022 13:12:54 +0300</pubDate>
-    </item>
-    <item>
-      <title>Публикация модулей / Go: Настройка окружения</title>
-      <guid isPermaLink="false">2906</guid>
-      <link>https://ru.hexlet.io/courses/go-setup-environment/lessons/publishing/theory_unit</link>
-      <description>Цель: Опубликуем первый Go-модуль</description>
-      <pubDate>Mon, 19 Sep 2022 09:25:59 +0300</pubDate>
-    </item>
-    <item>
-      <title>Другое / Ключевые аспекты веб-разработки на Python</title>
-      <guid isPermaLink="false">3004</guid>
-      <link>https://ru.hexlet.io/courses/python-overview-of-web-development/lessons/others/theory_unit</link>
-      <description>Цель: Пройтись по нескольким важным темам, не входящим в текущей курс.</description>
-      <pubDate>Thu, 15 Sep 2022 13:29:41 +0300</pubDate>
-    </item>
-    <item>
-      <title>Коллекции / Ключевые аспекты веб-разработки на Python</title>
-      <guid isPermaLink="false">3006</guid>
-      <link>https://ru.hexlet.io/courses/python-overview-of-web-development/lessons/collections/theory_unit</link>
-      <description>Цель: Рассмотреть идею коллекций и их обработки, понять важность и масштабность этой темы.</description>
-      <pubDate>Thu, 15 Sep 2022 13:29:41 +0300</pubDate>
-    </item>
-    <item>
-      <title>Тесты / Ключевые аспекты веб-разработки на Python</title>
-      <guid isPermaLink="false">3005</guid>
-      <link>https://ru.hexlet.io/courses/python-overview-of-web-development/lessons/tests/theory_unit</link>
-      <description>Цель: Познакомиться с идеей автоматического тестирования кода на корректность.</description>
-      <pubDate>Thu, 15 Sep 2022 13:29:41 +0300</pubDate>
-    </item>
-  </channel>
-</rss>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Webpack App</title>
+    </head>
+    <body>
+        <h1>Hello world!</h1>
+        <h2>Tip: Check your console</h2>
+    </body>
+    
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker
+                    .register("service-worker.js")
+                    .then((registration) => {
+                        console.log("Service Worker registered: ", registration);
+                    })
+                    .catch((registrationError) => {
+                        console.error("Service Worker registration failed: ", registrationError);
+                    });
+            });
+        }
+    </script>
+</html>

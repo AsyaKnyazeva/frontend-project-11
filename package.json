@@ -1,18 +1,29 @@
 {
-  "name": "@hexlet/code",
+  "name": "my-webpack-project",
   "version": "1.0.0",
-  "description": "rss reader",
+  "description": "My webpack project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch",
+    "serve": "webpack serve"
   },
   "devDependencies": {
     "@jest/globals": "^27.5.1",
+    "@webpack-cli/generators": "^2.5.0",
     "eslint": "^8.23.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jest": "^26.1.5",
-    "jest": "^27.5.1"
+    "html-webpack-plugin": "^5.5.0",
+    "jest": "^27.5.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1",
+    "workbox-webpack-plugin": "^6.5.4"
   },
   "repository": {
     "type": "git",
@@ -25,6 +36,7 @@
     "url": "https://github.com/AsyaKnyazeva/frontend-project-11/issues"
   },
   "dependencies": {
+    "bootstrap": "^5.2.1",
     "package": "^1.0.1"
   }
 }
