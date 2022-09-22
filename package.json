@@ -1,0 +1,32 @@
+{
+  "name": "@hexlet/code",
+  "version": "1.0.0",
+  "description": "rss reader",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@jest/globals": "^27.5.1",
+    "eslint": "^8.23.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.1.5",
+    "jest": "^27.5.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AsyaKnyazeva/frontend-project-11.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "..."
+  },
+  "homepage": "..."
+}
+
+
+
+
+
