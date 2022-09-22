@@ -20,13 +20,11 @@
   },
   "author": "",
   "license": "ISC",
+  "homepage": "http://...",
   "bugs": {
-    "url": "..."
+    "url": "https://github.com/AsyaKnyazeva/frontend-project-11/issues"
   },
-  "homepage": "..."
+  "dependencies": {
+    "package": "^1.0.1"
+  }
 }
-
-
-
-
-
