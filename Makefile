@@ -12,3 +12,13 @@ lint:
 
 publish:
 	npm publish --dry-run
+
+develop:
+	npx webpack serve
+
+build:
+	rm -rf dist
+	NODE_ENV=production npx webpack
+
+
+.PHONY: test
