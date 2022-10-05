@@ -1,8 +1,5 @@
 import onChange from 'on-change';
-
-const RSSInvalid = 'Ссылка должна быть валидным URL';
-const RSSValid = 'RSS успешно загружен';
-const RSSDuplicate = 'RSS уже существует';
+import i18n from 'i18next';
 
 const handleProcessState = (elements, processState) => {
   switch (processState) {
@@ -27,25 +24,27 @@ const handleProcessState = (elements, processState) => {
   }
 };
 
-const handleFormValid = (elements, value) => {
+const handleFormValid = (elements, i18n, value) => {
   if (value === true) {
-    elements.feedback.textContent = RSSValid;
+    elements.feedback.textContent = i18n.t('form.urlValid');
     elements.feedback.classList.remove('text-danger');
     elements.feedback.classList.add('text-success');
   }
+  elements.form.reset();
+  elements.form.focus();
 };
 
-const handleErrors = (elements, value) => {
+const handleErrors = (elements, i18n, value) => {
   elements.submitButton.disabled = false;
   elements.feedback.classList.remove('text-success');
   elements.feedback.classList.add('text-danger');
   switch (value) {
     case 'notOneOf':
-      elements.feedback.textContent = RSSDuplicate;
+      elements.feedback.textContent = i18n.t('form.errors.urlDuplicate');
       break;
 
     case 'url':
-      elements.feedback.textContent = RSSInvalid;
+      elements.feedback.textContent = i18n.t('form.errors.urlInvalid');;
       break;
 
     default:
@@ -56,18 +55,18 @@ const handleErrors = (elements, value) => {
   elements.form.focus();
 };
 
-const render = (elements) => (path, value /* , prevValue */) => {
+const render = (elements, i18n) => (path, value /* , prevValue */) => {
   switch (path) {
     case 'form.processState':
-      handleProcessState(elements, value);
+      handleProcessState(elements, i18n, value);
       break;
 
     case 'form.valid':
-      handleFormValid(elements, value);
+      handleFormValid(elements,i18n, value);
       break;
 
     case 'errorType':
-      handleErrors(elements, value);
+      handleErrors(elements,i18n, value);
       break;
 
     default:
@@ -75,7 +74,7 @@ const render = (elements) => (path, value /* , prevValue */) => {
   }
 };
 
-export default (elements) => onChange({
+export default (elements, i18n) => onChange({
   feeds: [],
   errorType: null,
   form: {
@@ -85,4 +84,4 @@ export default (elements) => onChange({
       input: '',
     },
   },
-}, render(elements));
+}, render(elements, i18n));
