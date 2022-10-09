@@ -1,100 +1,94 @@
-import _ from 'lodash';
-import * as yup from 'yup';
+import '../scss/styles.scss';
+import i18n from 'i18next';
+import axios from 'axios';
 import view from './view.js';
-import { loadRSS, parserRSS, updateRSS } from './rssUtils.js';
+import validateURL from './validateURL.js';
+import resources from './locales/index.js';
 
-export default (i18nInstance) => {
+export default () => {
+  const i18nInstance = i18n.createInstance();
+  i18nInstance
+    .init({
+      lng: 'ru',
+      debug: false,
+      resources,
+    })
+    .then(() => console.log('i18n loaded'))
+    .catch(() => console.log('i18n not loaded'));
+
   const elements = {
     form: document.querySelector('.rss-form'),
     feedback: document.querySelector('.feedback'),
-    input: document.getElementById('url-input'),
-    submitButton: document.querySelector('button[type="submit"]'),
+    fields: {
+      input: document.getElementById('url-input'),
+    },
+    submitButton: document.querySelector('input[name="url"]'),
     feedsContainer: document.querySelector('.feeds'),
     postsContainer: document.querySelector('.posts'),
-    modal: document.querySelector('#modal'),
   };
 
-  yup.setLocale({
-    string: {
-      url: 'form.error.urlInvalid',
-    },
+  const state = view(elements, i18nInstance);
 
-    mixed: {
-      required: 'form.error.urlRequired',
-      notOneOf: 'form.error.urlDuplicate',
-    },
-  });
+  const rssParser = (rssFeed) => {
+    const parsedXML = new DOMParser().parseFromString(rssFeed.data, 'application/xml');
+    const error = parsedXML.querySelector('parsererror');
+    if (error) {
+      state.errorType = 'rssParser';
+      return;
+    }
 
-  const urlSchema = yup
-    .string()
-    .required()
-    .url();
+    const feed = {
+      title: parsedXML.querySelector('channel title').textContent,
+      description: parsedXML.querySelector('channel description').textContent,
+    };
 
-  const validateURL = (url, urls) => urlSchema.notOneOf(urls).validate(url);
+    const posts = Array.from(parsedXML.querySelectorAll('item'))
+      .map((item) => {
+        const title = item.querySelector('title').textContent;
+        const link = item.querySelector('link').textContent;
+        const description = item.querySelector('description').textContent;
+        return { title, link, description };
+      });
 
-  const initialState = {
-    feeds: [],
-    posts: [],
-    urls: [],
-    form: {
-      error: null,
-      valid: null,
-      processState: 'filling',
-    },
-    uiState: {
-      visitedPosts: new Set(),
-      dataIDForModal: null,
-    },
+    return [feed, posts];
   };
 
-  const state = view(initialState, elements, i18nInstance);
+  const loadRSS = (url) => {
+    const proxyURL = `https://allorigins.hexlet.app/raw?url=${url}`;
+    return axios.get(proxyURL);
+  };
 
   elements.form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const url = formData.get('url');
+    state.form.fields.input = url;
+
 
     validateURL(url, state.urls)
       .then((validUrl) => {
         state.form.valid = true;
         state.urls.push(url);
+        return validUrl;
+      })
+      .then((url) => {
         state.form.processState = 'sending';
-        return loadRSS(validUrl);
+        return loadRSS(url);
       })
       .then((rss) => {
         state.form.processState = 'sent';
-        const { feed, posts } = parserRSS(rss);
+        const [rssFeed, rssPosts] = rssParser(rss);
         const feedID = _.uniqueId();
-        const rssFeed = { ...feed, id: feedID, url };
-        const rssPosts = posts.map((post) => ({ ...post, id: _.uniqueId(), feedID }));
-        state.feeds = [rssFeed, ...state.feeds];
-        state.posts = [...rssPosts, ...state.posts];
-        state.form.processState = 'dataLoaded';
+        const feed = { ...rssFeed, id: feedID, };
+        const posts = rssPosts.map((post) => {
+          return { ...post, id: _.uniqueId(), feedID };
+        });
+        state.feeds = [feed, ...state.feeds];
+        state.posts = [...posts, ...state.posts];
       })
       .catch((error) => {
-        state.form.valid = error.name !== 'ValidationError';
-        if (error.name === 'ValidationError') {
-          state.form.error = error.message;
-        } else if (error.rssInvalid) {
-          state.form.error = 'form.error.rssInvalid';
-        } else if (error.name === 'AxiosError') {
-          state.form.error = 'form.error.networkError';
-        }
+        state.errorType = error.type;
+        state.form.valid = false;
       });
   });
-
-  elements.postsContainer.addEventListener('click', (e) => {
-    const clicked = e.target;
-    if (clicked.closest('a')) {
-      const { id } = clicked.dataset;
-      state.uiState.visitedPosts.add(id);
-    }
-    if (clicked.closest('button')) {
-      const { id } = clicked.dataset;
-      state.uiState.visitedPosts.add(id);
-      state.uiState.dataIDForModal = id;
-    }
-  });
-
-  setTimeout(() => updateRSS(state), 5000);
 };

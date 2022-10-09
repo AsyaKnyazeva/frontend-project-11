@@ -6,7 +6,15 @@ export default {
         urlInvalid: 'Ссылка должна быть валидным URL',
         urlDuplicate: 'RSS уже существует',
         urlRequired: 'Обязательное поле',
+        rssParser: 'Ошибка при парсинге RSS',
       }
+    },
+    feed: {
+      Header: 'Фиды',
+    },
+    post: {
+      header: 'Посты',
+      button: 'Просмотр',
     },
     button: 'Загрузить',
   }
