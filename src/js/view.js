@@ -4,7 +4,7 @@ import _ from 'lodash';
 const handleProcessState = (elements, processState) => {
   switch (processState) {
     case 'sent':
-        elements.submitButton.disabled = false;
+      elements.submitButton.disabled = false;
       break;
 
     case 'error':
@@ -44,11 +44,11 @@ const handleErrors = (elements, i18n, value) => {
       break;
 
     case 'url':
-      elements.feedback.textContent = i18n.t('form.errors.urlInvalid');;
+      elements.feedback.textContent = i18n.t('form.errors.urlInvalid');
       break;
 
-      case 'rssParser':
-        elements.feedback.textContent = i18n.t('form.errors.rssParser');
+    case 'rssParser':
+      elements.feedback.textContent = i18n.t('form.errors.rssParser');
 
     default:
       console.log('Unknown error type = ', value);
@@ -58,7 +58,7 @@ const handleErrors = (elements, i18n, value) => {
   elements.form.focus();
 };
 const handleFeeds = (elements, i18n, feeds) => {
-  const feedsContainer = elements.feedsContainer;
+  const { feedsContainer } = elements;
   feedsContainer.innerHTML = '';
 
   const card = document.createElement('div');
@@ -92,7 +92,7 @@ const handleFeeds = (elements, i18n, feeds) => {
 
   card.append(cardBody, feedsList);
   feedsContainer.append(card);
-}
+};
 const render = (elements, i18n) => (path, value /* , prevValue */) => {
   switch (path) {
     case 'form.processState':
@@ -100,14 +100,14 @@ const render = (elements, i18n) => (path, value /* , prevValue */) => {
       break;
 
     case 'form.valid':
-      handleFormValid(elements,i18n, value);
+      handleFormValid(elements, i18n, value);
       break;
 
     case 'errorType':
-      handleErrors(elements,i18n, value);
+      handleErrors(elements, i18n, value);
       break;
-      case 'feeds':
-        handleFeeds(elements, i18n, value);
+    case 'feeds':
+      handleFeeds(elements, i18n, value);
 
     default:
 
@@ -117,7 +117,7 @@ const render = (elements, i18n) => (path, value /* , prevValue */) => {
 
 export default (elements, i18n) => onChange({
   feeds: [],
-  posts:[],
+  posts: [],
   urls: [],
   errorType: null,
   form: {

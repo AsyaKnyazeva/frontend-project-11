@@ -1,7 +1,7 @@
 import '../scss/styles.scss';
 import i18n from 'i18next';
-import view from './view.js';
 import _ from 'lodash';
+import view from './view.js';
 import validateURL from './validateURL.js';
 import resources from './locales/index.js';
 import parserRSS from './parser.js';
@@ -25,7 +25,7 @@ export default () => {
     fields: {
       input: document.getElementById('url-input'),
     },
-    submitButton: document.querySelector('input[name="url"]'),
+    submitButton: document.querySelector('button[type="submit"]'),
     feedsContainer: document.querySelector('.feeds'),
     postsContainer: document.querySelector('.posts'),
   };
@@ -37,7 +37,6 @@ export default () => {
     const formData = new FormData(e.target);
     const url = formData.get('url');
     state.form.fields.input = url;
-
 
     validateURL(url, state.urls)
       .then((validUrl) => {
@@ -53,10 +52,8 @@ export default () => {
         state.form.processState = 'sent';
         const [rssFeed, rssPosts] = parserRSS(rss);
         const feedID = _.uniqueId();
-        const feed = { ...rssFeed, id: feedID, url, };
-        const posts = rssPosts.map((post) => {
-          return { ...post, id: _.uniqueId(), feedID };
-        });
+        const feed = { ...rssFeed, id: feedID, url };
+        const posts = rssPosts.map((post) => ({ ...post, id: _.uniqueId(), feedID }));
         state.feeds = [feed, ...state.feeds];
         state.posts = [...posts, ...state.posts];
       })
@@ -65,5 +62,5 @@ export default () => {
         state.form.valid = false;
       });
   });
-  setTimeout(() => updateRSS(state), 1000);
+  setTimeout(() => updateRSS(state), 5000);
 };
