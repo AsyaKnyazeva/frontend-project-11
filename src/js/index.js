@@ -43,7 +43,7 @@ export default () => {
         input: '',
       },
     },
-    visitedPosts: new Set(),
+    visitedPosts: [],
     dataIDForModal: null,
   };
 
@@ -61,9 +61,9 @@ export default () => {
         state.urls.push(url);
         return validUrl;
       })
-      .then((url) => {
+      .then((validUrl) => {
         state.form.processState = 'sending';
-        return loadRSS(url);
+        return loadRSS(validUrl);
       })
       .then((rss) => {
         state.form.processState = 'sent';

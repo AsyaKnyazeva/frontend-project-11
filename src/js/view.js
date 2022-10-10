@@ -152,13 +152,13 @@ const renderVisitedPosts = (elements, value) => {
 
 const renderModal = (state, elements, id) => {
   const { modal } = elements;
-  const post = state.posts.filter((post) => post.id === id);
-  modal.querySelector('.modal-title').textContent = post.title;
-  modal.querySelector('.modal-body').textContent = post.description;
-  modal.querySelector('.full-article').href = post.link;
+  const clickedPost = state.posts.filter((post) => post.id === id);
+  const { title, description, link } = clickedPost;
+  modal.querySelector('.modal-title').textContent = title;
+  modal.querySelector('.modal-body').textContent = description;
+  modal.querySelector('.full-article').href = link;
 };
-
-const render = (state, elements, i18n) => (path, value) => {
+const render = (state, elements, i18n) => (path, value, prevValue) => {
   switch (path) {
     case 'form.processState':
       handleProcessState(elements, value);
@@ -181,10 +181,12 @@ const render = (state, elements, i18n) => (path, value) => {
       break;
 
     case 'visitedPosts':
-      renderVisitedPosts(elements, value);
+      renderVisitedPosts(elements, value, prevValue);
 
     case 'dataIDForModal':
       renderModal(state, elements, value);
+      break;
+
     default:
       break;
   }

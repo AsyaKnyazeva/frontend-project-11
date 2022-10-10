@@ -4,7 +4,6 @@
   "description": "My webpack project",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --mode=production --node-env=production",
     "build:dev": "webpack --mode=development",
     "build:prod": "webpack --mode=production --node-env=production",
@@ -13,6 +12,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^27.5.1",
+    "@playwright/test": "^1.27.0",
     "@webpack-cli/generators": "^0.1.9",
     "css-loader": "^6.7.1",
     "eslint": "^8.23.1",
