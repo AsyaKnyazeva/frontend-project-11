@@ -1,16 +1,18 @@
 export default {
   translation: {
     form: {
-      urlValid: 'RSS успешно загружен',
-      errors: {
+      rssValid: 'RSS успешно загружен',
+      error: {
         urlInvalid: 'Ссылка должна быть валидным URL',
         urlDuplicate: 'RSS уже существует',
         urlRequired: 'Обязательное поле',
         rssParser: 'Ошибка при парсинге RSS',
+        networkError: 'Ошибка сети',
+        rssInvalid: 'Ресурс не содержит валидный RSS',
       },
     },
     feed: {
-      Header: 'Фиды',
+      header: 'Фиды',
     },
     post: {
       header: 'Посты',

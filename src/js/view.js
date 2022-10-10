@@ -186,6 +186,13 @@ const render = (state, elements, i18n) => (path, value, prevValue) => {
     case 'dataIDForModal':
       renderModal(state, elements, value);
       break;
+    case 'uiState.visitedPosts':
+      renderPosts(state, elements, i18n, value);
+      break;
+
+    case 'uiState.dataIDForModal':
+      renderModal(state, elements, value);
+      break;
 
     default:
       break;
