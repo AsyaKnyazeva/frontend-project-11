@@ -1,6 +1,5 @@
-import '../scss/styles.scss';
-import * as yup from 'yup';
 import _ from 'lodash';
+import * as yup from 'yup';
 import view from './view.js';
 import { loadRSS, parserRSS, updateRSS } from './utilsRSS.js';
 
@@ -37,16 +36,15 @@ export default (i18nInstance) => {
     feeds: [],
     posts: [],
     urls: [],
-    errorType: null,
     form: {
+      error: null,
       valid: null,
       processState: 'filling',
-      fields: {
-        input: '',
-      },
     },
-    visitedPosts: [],
-    dataIDForModal: null,
+    uiState: {
+      visitedPosts: new Set(),
+      dataIDForModal: null,
+    },
   };
 
   const state = view(initialState, elements, i18nInstance);
@@ -94,6 +92,7 @@ export default (i18nInstance) => {
       state.uiState.visitedPosts.add(id);
     }
     if (clicked.closest('button')) {
+      const { id } = clicked.dataset;
       state.uiState.visitedPosts.add(id);
       state.uiState.dataIDForModal = id;
     }
