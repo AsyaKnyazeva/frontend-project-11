@@ -1,8 +1,5 @@
 node_modules/
 dist/
-tests/
-tests-examples/
-/test-results/
 /playwright-report/
 /playwright/.cache/
 .vercel
