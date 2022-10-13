@@ -2,3 +2,5 @@
 dist/
 tests
 tests-examples
+Makefile
+webpack.config.js
