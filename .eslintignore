@@ -4,3 +4,5 @@ tests
 tests-examples
 Makefile
 webpack.config.js
+.eslintrc.yml
+/project/code/tests-examples/demo-todo-app.spec.js
