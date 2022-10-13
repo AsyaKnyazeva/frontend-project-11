@@ -7,9 +7,7 @@ export default (i18nInstance) => {
   const elements = {
     form: document.querySelector('.rss-form'),
     feedback: document.querySelector('.feedback'),
-    fields: {
-      input: document.getElementById('url-input'),
-    },
+    input: document.getElementById('url-input'),
     submitButton: document.querySelector('button[type="submit"]'),
     feedsContainer: document.querySelector('.feeds'),
     postsContainer: document.querySelector('.posts'),
@@ -32,6 +30,7 @@ export default (i18nInstance) => {
     .url();
 
   const validateURL = (url, urls) => urlSchema.notOneOf(urls).validate(url);
+
   const initialState = {
     feeds: [],
     posts: [],
@@ -58,9 +57,6 @@ export default (i18nInstance) => {
       .then((validUrl) => {
         state.form.valid = true;
         state.urls.push(url);
-        return validUrl;
-      })
-      .then((validUrl) => {
         state.form.processState = 'sending';
         return loadRSS(validUrl);
       })
@@ -71,7 +67,7 @@ export default (i18nInstance) => {
         const rssFeed = { ...feed, id: feedID, url };
         const rssPosts = posts.map((post) => ({ ...post, id: _.uniqueId(), feedID }));
         state.feeds = [rssFeed, ...state.feeds];
-        state.posts = [rssPosts, ...state.posts];
+        state.posts = [...rssPosts, ...state.posts];
         state.form.processState = 'dataLoaded';
       })
       .catch((error) => {

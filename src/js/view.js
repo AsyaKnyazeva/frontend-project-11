@@ -13,6 +13,7 @@ const handleProcessState = (elements, i18n, processState) => {
     case 'filling':
       elements.submitButton.disabled = false;
       break;
+
     case 'dataLoaded':
       elements.feedback.textContent = i18n.t('form.rssValid');
       elements.feedback.classList.remove('text-danger');
@@ -159,14 +160,15 @@ const renderModal = (state, elements, id) => {
   modal.querySelector('.modal-body').textContent = description;
   modal.querySelector('.full-article').href = link;
 };
+
 const render = (state, elements, i18n) => (path, value) => {
   switch (path) {
     case 'form.processState':
-      handleProcessState(elements, value);
+      handleProcessState(elements, i18n, value);
       break;
 
     case 'form.valid':
-      handleFormValid(elements, i18n, value);
+      handleFormValid(elements, value);
       break;
 
     case 'form.error':
@@ -178,12 +180,9 @@ const render = (state, elements, i18n) => (path, value) => {
       break;
 
     case 'posts':
-      renderPosts(elements, i18n, value);
+      renderPosts(state, elements, i18n, value);
       break;
 
-    case 'dataIDForModal':
-      renderModal(state, elements, value);
-      break;
     case 'uiState.visitedPosts':
       renderPosts(state, elements, i18n, value);
       break;
